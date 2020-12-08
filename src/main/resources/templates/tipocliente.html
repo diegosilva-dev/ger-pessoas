@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Desafio Lecom</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4><strong>Tipos de Clientes Cadastrados</strong></h4>
+		</div> 
+		<style>
+			ul {
+	  			list-style-type: none;
+	  			margin: 0;
+	  			padding: 0;
+	  			overflow: hidden;
+	  			background-color: #333;
+			}
+			li {
+	  			float: left;
+			}
+			li a {
+	  			display: block;
+	  			color: white;
+	  			text-align: center;
+	  			padding: 14px 16px;
+	  			text-decoration: none;
+			}
+			li a:hover:not(.active) {
+	  			background-color: #111;
+			}
+			.active {
+	  			background-color: #4CAF50;
+			}
+		</style>
+			<ul>
+	  			<li><a href="api/agendaservico/search">Agenda de Serviços</a></li>
+  				<li><a href="api/servico/search">Serviços</a></li>
+  				<li><a href="api/cliente/search">Clientes</a></li>
+  				<li><a class="active" href="api/tipocliente/search">Tipo de Clientes</a></li>
+			</ul>
+		<div th:switch="${tb_tipocliente}">
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-sm table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Valor de Desconto</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="servico : ${/api/tipocliente}">
+                                        <td th:text="${/api/tipocliente/search.nome}"></td>
+                                        <td th:text="${/api/tipocliente/search.desconto}"></td>
+                                        <td>
+									<div class="btn-group pull-right">
+							   		<a class="btn btn-sm btn-primary" th:href="@{/update/{id_tipocliente}(id=${servico.id_tipocliente})}" >Editar</a>
+							   		<a class="delete btn btn-sm btn-danger" th:href="@{/delete/{id_tipocliente}(id=${servico.id_tipocliente})}">Excluir</a>
+							   </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<a class="btn btn-sm btn-success" th:href="@{/api/tipocliente/new/}" >Adicionar novo tipo de cliente</a>			
+		</div>
+	</div>
+	</div>
+</body>
+</html>
